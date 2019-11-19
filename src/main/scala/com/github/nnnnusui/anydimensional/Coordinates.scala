@@ -9,5 +9,8 @@ object Coordinates{
 case class Coordinates[A](values: Vector[A])(implicit numeric: Numeric[A]){
   val dimension = values.size
 
+  object VectorIsNumeric extends VectorIsNumeric[A]
+  def +(x: Coordinates[A]): Coordinates[A] = VectorIsNumeric.plus(this, x)
+
   override def toString: String = s"${this.getClass.getSimpleName}(${values.mkString(", ")})"
 }

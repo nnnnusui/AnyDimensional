@@ -17,5 +17,8 @@ class CoordinatesTest extends WordSpec with Matchers with ScalaCheckDrivenProper
       }
   }
   val coordinates = Coordinates(1, 5)
-  println(coordinates(1))
+  println(
+    Coordinates(1, 1)
+    + Coordinates(1, 1)
+  )
 }
