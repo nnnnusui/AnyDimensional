@@ -4,9 +4,9 @@ import org.scalatest.FunSuite
 
 class IsTest extends FunSuite {
 
-  object Test1 extends CompanionIs[Test1, Int]
+  object Test1 extends ConvertibleIs[Test1, Int]
   case class Test1(value: Int) extends Is[Int]
-  object Test2 extends CompanionIs[Test2, Int]
+  object Test2 extends ConvertibleIs[Test2, Int]
   case class Test2(value: Int) extends Is[Int]
 
   val test1 = Test1(4)
