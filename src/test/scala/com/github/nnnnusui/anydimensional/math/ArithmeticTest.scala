@@ -1,7 +1,6 @@
 package com.github.nnnnusui.anydimensional.math
 
 import com.github.nnnnusui.anydimensional.{ConvertibleIs, Is}
-import com.github.nnnnusui.anydimensional.math.calculate.{Div, Plus}
 import org.scalatest.FunSuite
 
 class ArithmeticTest extends FunSuite {
@@ -16,13 +15,17 @@ class ArithmeticTest extends FunSuite {
 
   object X extends ConvertibleIs[X, Int]
   case class X(value: Int) extends Is[Int]
+  object Y extends ConvertibleIs[Y, Int]
+  case class Y(value: Int) extends Is[Int]
 //  import math._
-  import X.{toValue, fromValue}
-  println(X(1) + X(2))
+  import X.toValue
+  println(X(1) + X(2) + 10)
   println(X(1) - X(2))
   println(X(1) * X(2))
   println(X(5) / X(2))
+  println(53 + X(12))
 
-  def test[A, B](value: A)(implicit ev$1: A => B): Unit = println(value)
-  test(X(1))
+  println(3 + Y(2) + X(5))
+//  def test[A, B](value: A)(implicit ev$1: A => B): Unit = println(value)
+//  test(X(1))
 }

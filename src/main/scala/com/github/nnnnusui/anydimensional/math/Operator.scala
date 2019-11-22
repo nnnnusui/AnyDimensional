@@ -2,9 +2,9 @@ package com.github.nnnnusui.anydimensional.math
 
 import com.github.nnnnusui.anydimensional.math.calculate.{Div, Minus, Plus, Times}
 
-class Operator[In, Out](lhs: In){
-  def +(rhs: In)(implicit has: Plus[In,Out] ): Out = has.plus(lhs, rhs)
-  def -(rhs: In)(implicit has: Minus[In,Out]): Out = has.minus(lhs, rhs)
-  def *(rhs: In)(implicit has: Times[In,Out]): Out = has.times(lhs, rhs)
-  def /(rhs: In)(implicit has: Div[In,Out]  ): Out = has.div(lhs, rhs)
+class Operator[Lhs, Out](lhs: Lhs){
+  def +[Rhs](rhs: Rhs)(implicit convert: Rhs => Lhs, has: Plus[Lhs,Out] ): Out = has.plus(lhs, rhs)
+  def -[Rhs](rhs: Rhs)(implicit convert: Rhs => Lhs, has: Minus[Lhs,Out]): Out = has.minus(lhs, rhs)
+  def *[Rhs](rhs: Rhs)(implicit convert: Rhs => Lhs, has: Times[Lhs,Out]): Out = has.times(lhs, rhs)
+  def /[Rhs](rhs: Rhs)(implicit convert: Rhs => Lhs, has: Div[Lhs,Out]  ): Out = has.div(lhs, rhs)
 }
