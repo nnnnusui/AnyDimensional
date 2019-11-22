@@ -3,20 +3,15 @@ package com.github.nnnnusui.anydimensional.math
 import com.github.nnnnusui.anydimensional.math.calculate.Plus
 
 
-trait IterableIsField[A, -S[X] <: Iterable[X]] extends Plus[S[A], Iterable[A]]{
-  implicit val has: Plus[A, A]
+trait IterableIsField[A, -S[X] <: Iterable[X]] extends Field[S[A], Iterable[A]]{
+  implicit val has: Field[A, A]
   override def plus(x: S[A], y: S[A]): Iterable[A]
-  = Seq.from(x.zip(y).map(it=> has.plus(it._1, it._2)))
+    = Seq.from(x.zip(y).map(it=> has.plus(it._1, it._2)))
+  override def minus(x: S[A], y: S[A]): Iterable[A]
+    = Seq.from(x.zip(y).map(it=> has.minus(it._1, it._2)))
+  override def div(x: S[A], y: S[A]): Iterable[A]
+    = Seq.from(x.zip(y).map(it=> has.div(it._1, it._2)))
+  override def times(x: S[A], y: S[A]): Iterable[A]
+    = Seq.from(x.zip(y).map(it=> has.times(it._1, it._2)))
 }
-class IterableIsArithmetic[A, B[X] <: Iterable[X]](implicit val has: Plus[A, A]) extends IterableIsField[A, B]
-
-//class VectorIsArithmetic[A, S](implicit val has: Plus[A, A]) extends SequenceIsField[A, S]
-//trait VectorIsField[T] extends Plus[B]{
-//  implicit val has: Plus[T]
-//  override def plus(x: B, y: B): B
-//    = Seq.from(x.zip(y).map(it=> has.plus(it._1, it._2)))
-////  override def minus(x: Vector[A], y: Vector[A]): Vector[A] = ???
-////  override def times(x: Vector[A], y: Vector[A]): Vector[A] = ???
-////  override def div(x: Vector[A], y: Vector[A]): Vector[A] = ???
-//}
-//class VectorIsArithmetic[A](implicit val has: Plus[A]) extends VectorIsField[A]
+class IterableIsArithmetic[A, B[X] <: Iterable[X]](implicit val has: Field[A, A]) extends IterableIsField[A, B]
