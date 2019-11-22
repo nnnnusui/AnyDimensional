@@ -1,7 +1,7 @@
 package com.github.nnnnusui.anydimensional
 
 package object math {
-  implicit def makeOperator[A](lhs: A): Operator[A] = new Operator[A](lhs)
+  implicit def makeOperator[In, Out](lhs: In): Operator[In, Out] = new Operator[In, Out](lhs)
 
   implicit def integralIsArithmetic[A](implicit integral: Integral[A]): ImplicitArithmetic.IntegralIsArithmetic[A]
     = new ImplicitArithmetic.IntegralIsArithmetic[A]

@@ -10,22 +10,16 @@ class IterableIsArithmeticTest extends FunSuite {
 //
 //  def test[A](seq: Seq[A]): Unit = println(seq)
 //  test(Seq(1, 2, 3))
-  class Operator[A, B](lhs: A){
-    def +(rhs: A)(implicit has: Plus[A, B] ): B = has.plus(lhs, rhs)
-  }
-  implicit def makeOperator[A, In[_]](lhs: In[A]): Operator[In[A], Iterable[A]] = new Operator[In[A], Iterable[A]](lhs)
+//  class Operator[A, B](lhs: A){
+//    def +(rhs: A)(implicit has: Plus[A, B] ): B = has.plus(lhs, rhs)
+//  }
+//  implicit def makeOperator[A, In[_]](lhs: In[A]): Operator[In[A], Iterable[A]] = new Operator[In[A], Iterable[A]](lhs)
 
 
-//  implicit object IntIsPlusable extends Plus[Int, Int] {
-//    override def plus(x: Int, y: Int): Int = x + y
-//  }
-//  implicit object DoubleIsPlusable extends Plus[Double, Double] {
-//    override def plus(x: Double, y: Double): Double = x + y
-//  }
   println(new IterableIsArithmetic[Double, Iterable].plus(Seq(0x11), IndexedSeq(1)))
-//  println(iterableIsArithmetic[Int, Seq].plus(Vector(1, 2), Vector(1, 2)))
   implicit def iterableIsArithmetic[A, B[X] <: Iterable[X]](implicit integral: Plus[A, A]): IterableIsArithmetic[A, B] = new IterableIsArithmetic[A, B]
   println(Vector(1) + Vector(1))
+  println(Seq(1) + Vector(1))
 
 //  // 型コンストラクタ
 //  type IntMap[A] = scala.collection.immutable.Map[Int, A]
