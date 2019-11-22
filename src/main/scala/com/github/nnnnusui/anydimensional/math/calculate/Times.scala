@@ -1,5 +1,5 @@
 package com.github.nnnnusui.anydimensional.math.calculate
 
-trait Times[T] {
-  def times(x: T, y: T): T
+trait Times[In, Out] {
+  def times(x: In, y: In): Out
 }
