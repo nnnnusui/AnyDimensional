@@ -1,15 +1,14 @@
 package com.github.nnnnusui.anydimensional.math
 
+import com.github.nnnnusui.anydimensional.math.calculate.Plus
 
-trait Plus[-In, +Out]{
-  def plus(x: In, y: In): Out
-}
-trait IterableIsField[A, -S[A] <: Iterable[A]] extends Plus[S[A], Iterable[A]]{
+
+trait IterableIsField[A, -S[X] <: Iterable[X]] extends Plus[S[A], Iterable[A]]{
   implicit val has: Plus[A, A]
   override def plus(x: S[A], y: S[A]): Iterable[A]
   = Seq.from(x.zip(y).map(it=> has.plus(it._1, it._2)))
 }
-class IterableIsArithmetic[A, B[A] <: Iterable[A]](implicit val has: Plus[A, A]) extends IterableIsField[A, B]
+class IterableIsArithmetic[A, B[X] <: Iterable[X]](implicit val has: Plus[A, A]) extends IterableIsField[A, B]
 
 //class VectorIsArithmetic[A, S](implicit val has: Plus[A, A]) extends SequenceIsField[A, S]
 //trait VectorIsField[T] extends Plus[B]{
