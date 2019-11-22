@@ -3,12 +3,12 @@ package com.github.nnnnusui.anydimensional
 package object math {
   implicit def makeOperator[A](lhs: A): Operator[A] = new Operator[A](lhs)
 
-  implicit def integralIsArithmetic[A](implicit integral: Integral[A]): Arithmetic.IntegralIsArithmetic[A]
-    = new Arithmetic.IntegralIsArithmetic[A]
-  implicit def fractionalIsArithmetic[A](implicit fractional: Fractional[A]): Arithmetic.FractionalIsArithmetic[A]
-    = new Arithmetic.FractionalIsArithmetic[A]
+  implicit def integralIsArithmetic[A](implicit integral: Integral[A]): ImplicitArithmetic.IntegralIsArithmetic[A]
+    = new ImplicitArithmetic.IntegralIsArithmetic[A]
+  implicit def fractionalIsArithmetic[A](implicit fractional: Fractional[A]): ImplicitArithmetic.FractionalIsArithmetic[A]
+    = new ImplicitArithmetic.FractionalIsArithmetic[A]
 
-  object Arithmetic{
+  object ImplicitArithmetic{
     trait NumericIsRing[T] extends Ring[T]{
       implicit val has: Numeric[T]
       override def plus(x: T, y: T): T = has.plus(x, y)
