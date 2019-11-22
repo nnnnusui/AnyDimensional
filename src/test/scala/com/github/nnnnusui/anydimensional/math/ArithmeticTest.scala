@@ -1,21 +1,28 @@
 package com.github.nnnnusui.anydimensional.math
 
+import com.github.nnnnusui.anydimensional.{ConvertibleIs, Is}
+import com.github.nnnnusui.anydimensional.math.calculate.{Div, Plus}
 import org.scalatest.FunSuite
 
-import scala.math.Fractional
-
 class ArithmeticTest extends FunSuite {
+//  trait XIsArithmetic extends Arithmetic[X]{
+//    import X.toValue
+//    override def plus(x: X, y: X): X = x + y
+//    override def minus(x: X, y: X): X = x - y
+//    override def times(x: X, y: X): X = x * y
+//    override def div(  x: X, y: X): X = x / y
+//  }
+//  implicit object XIsArithmetic extends XIsArithmetic
 
-  def arithmetic[T](value: T)(implicit arithmetic: Arithmetic[T]): Unit = println(s"$value is arithmetic. ${arithmetic.plus(value, value)}")
+  object X extends ConvertibleIs[X, Int]
+  case class X(value: Int) extends Is[Int]
+//  import math._
+  import X.{toValue, fromValue}
+  println(X(1) + X(2))
+  println(X(1) - X(2))
+  println(X(1) * X(2))
+  println(X(5) / X(2))
 
-  abstract class FractionalIsArithmetic[T](implicit fractional: Fractional[T]) extends Arithmetic[T]{
-    override def plus(x: T, y: T): T = fractional.plus(x, y)
-    override def minus(x: T, y: T): T = fractional.minus(x, y)
-    override def times(x: T, y: T): T = fractional.times(x, y)
-    override def div(x: T, y: T): T = fractional.div(x, y)
-    override def negate(x: T): T = fractional.negate(x)
-  }
-  implicit object FractionalDoubleIsArithmetic extends FractionalIsArithmetic[Double]
-
-  arithmetic(2.2)
+  def test[A, B](value: A)(implicit ev$1: A => B): Unit = println(value)
+  test(X(1))
 }
