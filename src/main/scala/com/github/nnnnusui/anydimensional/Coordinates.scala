@@ -4,7 +4,7 @@ import com.github.nnnnusui.anydimensional.math.{Arithmetic, Field}
 
 object Coordinates{
   implicit def coordinatesIsArithmetic[A](implicit has: Arithmetic[A, A]): CoordinatesIsArithmetic[A] = new CoordinatesIsArithmetic[A]
-  def apply[A](values: A*)(implicit numeric: Numeric[A]): Coordinates[A] = Coordinates(values.toVector)
+  def apply[A](values: A*): Coordinates[A] = Coordinates(values.toVector)
 }
 case class Coordinates[A](value: Vector[A]) extends Is[Vector[A]]{
   override def toString: String = s"${this.getClass.getSimpleName}(${value.mkString(", ")})"
