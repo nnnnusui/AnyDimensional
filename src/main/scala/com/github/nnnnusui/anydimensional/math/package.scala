@@ -2,6 +2,8 @@ package com.github.nnnnusui.anydimensional
 
 package object math {
   implicit def makeOperator[In, Out](lhs: In): Operator[In, Out] = new Operator[In, Out](lhs)
+  implicit def iterableIsArithmetic[A, B[X] <: Iterable[X]](implicit integral: Field[A, A]): IterableIsArithmetic[A, B]
+    = new IterableIsArithmetic[A, B]
 
   implicit def integralIsArithmetic[A](implicit integral: Integral[A]): ImplicitArithmetic.IntegralIsArithmetic[A]
     = new ImplicitArithmetic.IntegralIsArithmetic[A]

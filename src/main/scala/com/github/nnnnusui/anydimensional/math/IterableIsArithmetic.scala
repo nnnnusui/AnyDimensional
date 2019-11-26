@@ -1,7 +1,5 @@
 package com.github.nnnnusui.anydimensional.math
 
-import com.github.nnnnusui.anydimensional.math.calculate.Plus
-
 
 trait IterableIsField[A, -S[X] <: Iterable[X]] extends Field[S[A], Iterable[A]]{
   implicit val has: Field[A, A]

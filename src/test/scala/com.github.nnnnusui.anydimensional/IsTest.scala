@@ -3,6 +3,7 @@ package com.github.nnnnusui.anydimensional
 import org.scalatest.FunSuite
 
 class IsTest extends FunSuite {
+  implicit def isTo[A, I <: Is[A]](src: I): A = src.value
 
   object Test1 extends ConvertibleIs[Test1, Int]
   case class Test1(value: Int) extends Is[Int]
