@@ -1,4 +1,4 @@
-package com.github.nnnnusui.anydimensional.math.calculate
+package com.github.nnnnusui.anydimensional.math.calculation
 
 class PlusTest extends org.scalatest.FunSuite {
   case class I(value: Int)
@@ -9,9 +9,11 @@ class PlusTest extends org.scalatest.FunSuite {
   implicit def iToJ(i: I): J = J(i.value)
   implicit def jToI(j: J): I = I(j.value.toInt)
 
-  implicit class EnrichPlusOperator[T](lhs: T){
-    def +[Right](rhs: Right)(implicit rToL: Right => T, has: Plus[T]): T = has.plus(lhs, rhs)
-  }
+  implicit class EnrichOperator[T](override val lhs: T)
+    extends Plus.Operator[T]
+       with Minus.Operator[T]
+       with Times.Operator[T]
+       with Div.Operator[T]
 
   implicit def iterableHasPlus[A, B[X] <: Iterable[X]](implicit has: Plus[A]): Plus[B[A]]
     = (x: B[A], y: B[A]) => x.zip(y).map(it => has.plus(it._1, it._2)).asInstanceOf[B[A]]
