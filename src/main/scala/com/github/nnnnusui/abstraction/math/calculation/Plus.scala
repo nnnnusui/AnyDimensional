@@ -1,4 +1,4 @@
-package com.github.nnnnusui.anydimensional.math.calculation
+package com.github.nnnnusui.abstraction.math.calculation
 
 trait Plus[T] extends IsCalculation{
   def plus(x: T, y: T): T

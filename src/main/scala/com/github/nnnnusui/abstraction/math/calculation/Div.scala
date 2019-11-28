@@ -1,4 +1,4 @@
-package com.github.nnnnusui.anydimensional.math.calculation
+package com.github.nnnnusui.abstraction.math.calculation
 
 trait Div[T] extends IsCalculation{
   def div(x: T, y: T): T

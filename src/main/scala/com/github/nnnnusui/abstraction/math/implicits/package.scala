@@ -1,6 +1,6 @@
-package com.github.nnnnusui.anydimensional.math
+package com.github.nnnnusui.abstraction.math
 
-import com.github.nnnnusui.anydimensional.math.calculation.{Div, Minus, Plus, Times}
+import com.github.nnnnusui.abstraction.math.calculation.{Div, Minus, Plus, Times}
 
 package object implicits {
   implicit class ImplicitOperator[T](override val lhs: T)

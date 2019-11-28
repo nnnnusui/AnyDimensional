@@ -1,4 +1,4 @@
-package com.github.nnnnusui.anydimensional.math.calculation
+package com.github.nnnnusui.abstraction.math.calculation
 
 trait Times[T] extends IsCalculation{
   def times(x: T, y: T): T
