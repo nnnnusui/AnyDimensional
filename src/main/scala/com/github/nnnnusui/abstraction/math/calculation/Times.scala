@@ -5,6 +5,6 @@ trait Times[T] extends IsCalculation{
 }
 object Times{
   trait Operator[T] extends IsOperator[T]{
-    def -[Right](rhs: Right)(implicit rToL: Right => T, has: Times[T]): T = has.times(lhs, rhs)
+    def *[Right](rhs: Right)(implicit rToL: Right => T, has: Times[T]): T = has.times(lhs, rhs)
   }
 }
