@@ -7,8 +7,9 @@ class PlusTest extends org.scalatest.FunSuite {
   case class J(value: Int)
   implicit val jHasPlus: Plus[J] = (x: J, y: J) => J(x.value + y.value)
 
-  implicit class EnrichPlusOperator[A: Plus](lhs: A){
-    def +(rhs: A): A = implicitly[Plus[A]].plus(lhs, rhs)
+  implicit class EnrichPlusOperator[Left: Plus](lhs: Left){
+    def +(rhs: Left): Left = implicitly[Plus[Left]].plus(lhs, rhs)
+    def +[Right](rhs: Right)(implicit rToL: Right => Left): Left = implicitly[Plus[Left]].plus(lhs, rhs)
   }
 
   println(I(1) + I(2))
@@ -16,5 +17,8 @@ class PlusTest extends org.scalatest.FunSuite {
 
   implicit def JToI(j: J): I = I(j.value)
   println(I(2) + JToI(J(4)))
+
+  val enrich = new EnrichPlusOperator(I(2))
+  println(enrich + J(4))
   println(I(2) + J(4)) // error
 }
