@@ -6,33 +6,29 @@ class PlusTest extends org.scalatest.FunSuite {
   case class J(value: Double)
   implicit val jHasPlus: Plus[J] = (x: J, y: J) => J(x.value + y.value)
 
+  implicit def iToJ(i: I): J = J(i.value)
+  implicit def jToI(j: J): I = I(j.value.toInt)
+
   implicit class EnrichPlusOperator[T](lhs: T){
     def +[Right](rhs: Right)(implicit rToL: Right => T, has: Plus[T]): T = has.plus(lhs, rhs)
   }
 
-  implicit def iterableHasPlus[A, B[X] <: Iterable[X]](implicit has: Plus[A]): Plus[B[A]] = (x: B[A], y: B[A]) => x.zip(y).map(it => has.plus(it._1, it._2)).asInstanceOf[B[A]]
+  implicit def iterableHasPlus[A, B[X] <: Iterable[X]](implicit has: Plus[A]): Plus[B[A]]
+    = (x: B[A], y: B[A]) => x.zip(y).map(it => has.plus(it._1, it._2)).asInstanceOf[B[A]] /*<-不服*/
+  implicit def iterableParameterImplicitConversion[A, B, C[X] <: Iterable[X]](before: C[A])(implicit converter: A => B): C[B]
+    = before.map(it=> converter(it)).asInstanceOf[C[B]] /*<-不服*/
 
-  /* Arithmetic iterable
-   * Iterable -> Seq -> List
-   * Iterable -> IndexedSeq -> Vector
-   *  allow: -T
-   *  deny : +T
+  /* iterable's parameter implicit conversion
+   * if (implicitly[I => J])
+   *   Iterable[I] => Iterable[J] is implicitly
    */
-  val i = Iterable(I(1), I(1), I(2))
-  println(i.toIterable + i.toIterable)
-  println(i.toIterable + i.toSeq     )
-  println(i.toIterable + i.toList    )
-  println(i.toSeq      + i.toIterable) //error: NotImplicitly[Iterable => Seq]
-  println(i.toSeq      + i.toSeq     )
-  println(i.toSeq      + i.toList    )
-  println(i.toList     + i.toIterable) //error: NotImplicitly[Iterable => List]
-  println(i.toList     + i.toSeq     ) //error: NotImplicitly[Seq => List]
-  println(i.toList     + i.toList    )
-  println(i.toIterable + i.toIndexedSeq)
-  println(i.toIterable + i.toVector    )
-  println(i.toIndexedSeq + i.toIndexedSeq)
-  println(i.toIndexedSeq + i.toVector    )
-  println(i.toVector + i.toIndexedSeq) //error: NotImplicitly[IndexedSeq => Vector]
-  println(i.toVector + i.toVector    )
+  val iSeq: Seq[I] = Seq(I(1), I(1), I(2))
+  println(iSeq + iSeq)
+  val jSeq: Seq[J] = Seq(J(1.2), J(2.4), J(3.2))
+  println(jSeq + jSeq)
+  println(iSeq + jSeq)
+  println(jSeq + iSeq)
 
+  def intVec(v: Vector[J]): Vector[J] = v
+  intVec(Vector(I(1), I(2), I(3)))
 }
